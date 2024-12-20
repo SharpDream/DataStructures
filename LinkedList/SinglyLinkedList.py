@@ -1,3 +1,6 @@
+from re import S
+
+
 class Node:
 
   def __init__(self, data=None, next=None) -> None:
@@ -10,7 +13,7 @@ class SLL:
   def __init__(self) -> None:
     self.head = None
 
-  def Insert_at_the_tail(self, data):
+  def insert_at_the_tail(self, data):
     itr = self.head
     node = Node(data)
 
@@ -117,13 +120,15 @@ class SLL:
       return False
 
   def reverse(self):
-    li = self.display()
-    li = li.split("-->")
-    li_rev = ''
-    for x in range(len(li) - 1, -1, -1):
-      li_rev += li[x] + "-->" if x else li[x]
+    prev, curr = None, self.head
 
-    return li_rev
+    while curr:
+      temp = curr.next
+      curr.next = prev
+      prev = curr
+      curr = temp
+
+    self.head = prev
 
   def display(self):
     itr = self.head
