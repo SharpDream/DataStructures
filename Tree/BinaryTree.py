@@ -104,6 +104,32 @@ class BinaryTree:
 
         return element
 
+    def delete(self, val):
+        if val < self.data:
+            if self.left:
+                self.left = self.left.delete(val)
+        elif val > self.data:
+            if self.right:
+                self.right = self.right.delete(val)
+        else:
+            if self.left is None and self.right is None:
+                return None
+            elif self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.left
+
+            min_val = self.right.find_min()
+            self.data = min_val
+            self.right = self.right.delete(min_val)
+
+            # alternate solution
+            # max_val = self.left.find_max()
+            # self.data = max_val
+            # self.left = self.left.delete(max_val)
+
+        return self
+
 
 def build_tree(li: list):
     root = BinaryTree(li[0])
